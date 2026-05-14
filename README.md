@@ -1,24 +1,58 @@
+<div align="center">
+
 # Polymarket Arbitrage Bot
+
+### 15m Up/Down markets · dump-and-hedge · Gamma API · CLOB · TypeScript
 
 Polymarket **arbitrage bot** for 15-minute Up/Down markets. Automates the **dump-and-hedge** strategy with configurable thresholds, stop-loss hedging, and optional simulation mode. Full credential management, CLOB order execution, and market discovery via Gamma API.
 
-| | |
-|--|--|
-| **Repository** | [github.com/DEV-OCR/polymarket-arbitrage-trading-bot](https://github.com/DEV-OCR/polymarket-arbitrage-trading-bot) |
-| **Polymarket** | [polymarket.com](https://polymarket.com) (official site; this project is independent) |
+<p>
+  <a href="https://github.com/UTRUN0/polymarket-arbitrage-trading-bot"><b>Repository</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://polymarket.com"><b>Polymarket.com</b></a>
+  <br />
+  <sub><i>Unofficial project — not affiliated with Polymarket.</i></sub>
+</p>
 
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-DEV--OCR%2Fpolymarket--arbitrage--trading--bot-181717?logo=github)](https://github.com/DEV-OCR/polymarket-arbitrage-trading-bot)
+[![GitHub](https://img.shields.io/badge/GitHub-UTRUN0%2Fpolymarket--arbitrage--trading--bot-181717?logo=github)](https://github.com/UTRUN0/polymarket-arbitrage-trading-bot)
 [![Polymarket](https://img.shields.io/badge/Polymarket-polymarket.com-5D3FD3)](https://polymarket.com)
-[![Homepage](https://img.shields.io/badge/Homepage-polymarket.com-6366f1)](https://polymarket.com)
+[![Homepage](https://img.shields.io/badge/Website-polymarket.com-6366f1)](https://polymarket.com)
 
+<img src="image/1cfc866b-929f-47df-8075-e87b0b157c86.png" alt="Polymarket Arbitrage Bot" width="820" />
 
-![Polymarket Arbitrage Bot](image/1cfc866b-929f-47df-8075-e87b0b157c86.png)
+</div>
 
+<sub>
 
-##  Overview
+**Keywords:** polymarket trading bot polymarket arbitrage bot, polymarket trading bot polymarket arbitrage bot, polymarket trading bot polymarket arbitrage bot, polymarket trading bot polymarket arbitrage bot, polymarket trading bot polymarket arbitrage bot, polymarket trading bot polymarket  bot,
+
+</sub>
+
+---
+
+### Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Quick Start](#quick-start)
+- [Configuration Guide](#configuration-guide)
+- [How It Works](#how-it-works)
+- [Available Scripts](#available-scripts)
+- [Docker (optional)](#docker-optional)
+- [Troubleshooting](#troubleshooting)
+- [Security Best Practices](#security-best-practices)
+- [Project structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Disclaimer](#disclaimer)
+- [Roadmap](#roadmap)
+
+---
+
+## Overview
 
 This **Polymarket arbitrage bot** runs a **dump-and-hedge** strategy on Polymarket’s 15m Up/Down markets (e.g. BTC, ETH, SOL, XRP) by:
 
@@ -40,29 +74,29 @@ Perfect for automating the dump-and-hedge arbitrage on Polymarket 15m markets wi
 ![Trade Execution](docs/images/trades.png)
 -->
 
-##  Key Features
+## Key Features
 
-###  Trading & Strategy
+### Trading & Strategy
 - **Dump-and-hedge** – Buy the dip on one outcome, then hedge when sum of prices ≤ target
 - **Multi-asset** – Supports BTC, ETH, SOL, XRP 15m markets (configurable via `MARKETS`)
 - **Automatic market discovery** – Resolves current 15m market by slug and period timestamp
 - **Period rollover** – Detects new 15m periods and switches to the new market automatically
 - **Stop-loss hedge** – Time-based fallback hedge if ideal hedge price isn’t reached
 
-###  Risk & Safety
+### Risk & Safety
 - **Simulation by default** – No real orders until you set `PRODUCTION=true` or use `npm run prod`
 - **Configurable sizing** – Shares per leg, sum target, move threshold, and watch window
 - **Stop-loss parameters** – Max wait before forced hedge and stop-loss percentage
 - **Position tracking** – Per-period and total P&L; redemption of winning tokens on close
 
-###  Production-Ready
+### Production-Ready
 - **Env-based config** – All settings in `.env` (no config files to commit)
 - **CLOB auth** – API key derivation from signer or optional explicit API key/secret/passphrase
 - **Proxy wallet support** – Optional Polymarket proxy/profile address and signature type (EOA / Proxy / GnosisSafe)
 - **History logging** – Append-only `history.toml` for audit and debugging
 - **Graceful handling** – Continues monitoring on transient API errors; clear stderr logging
 
-##  Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -74,7 +108,7 @@ Perfect for automating the dump-and-hedge arbitrage on Polymarket 15m markets wi
 
 ```bash
 # Clone this repository
-git clone https://github.com/DEV-OCR/polymarket-arbitrage-trading-bot.git
+git clone https://github.com/UTRUN0/polymarket-arbitrage-trading-bot.git
 cd polymarket-arbitrage-trading-bot
 
 # Install dependencies
@@ -129,7 +163,7 @@ npm run dev
 
 Logs go to stderr and are appended to `history.toml`.
 
-##  Configuration Guide
+## Configuration Guide
 
 ### Environment Variables
 
@@ -163,7 +197,7 @@ Logs go to stderr and are appended to `history.toml`.
 
 If you don’t set `API_KEY` / `API_SECRET` / `API_PASSPHRASE`, the bot derives CLOB credentials from the signer (recommended). You can set them explicitly if you already have API keys.
 
-##  How It Works
+## How It Works
 
 ### Dump-and-hedge flow
 
@@ -182,7 +216,7 @@ If you don’t set `API_KEY` / `API_SECRET` / `API_PASSPHRASE`, the bot derives 
 - **Simulation** (`PRODUCTION=false` or `npm run sim`): no orders sent to the CLOB; strategy logic and logging run as normal. Use this to verify behavior and parameters.
 - **Production** (`PRODUCTION=true` or `npm run prod`): real orders and redemptions. Requires `PRIVATE_KEY`; set `PROXY_WALLET_ADDRESS` and `SIGNATURE_TYPE` if you use a proxy/GnosisSafe.
 
-##  Available Scripts
+## Available Scripts
 
 | Command | Description |
 |---------|-------------|
@@ -192,7 +226,7 @@ If you don’t set `API_KEY` / `API_SECRET` / `API_PASSPHRASE`, the bot derives 
 | `npm run prod` | Run in production (real trades) |
 | `npm run dev` | Run with ts-node (development) |
 
-##  Docker (optional)
+## Docker (optional)
 
 If you add a `Dockerfile` later:
 
@@ -202,7 +236,7 @@ docker run --env-file .env -d --name polymarket-arbitrage-bot polymarket-arbitra
 docker logs -f polymarket-arbitrage-bot
 ```
 
-##  Troubleshooting
+## Troubleshooting
 
 ### Bot doesn’t find markets
 - Confirm `MARKETS` is one of `btc`, `eth`, `sol`, `xrp` (comma-separated).
@@ -221,7 +255,7 @@ docker logs -f polymarket-arbitrage-bot
 - Increase `DUMP_HEDGE_MOVE_THRESHOLD` (e.g. 0.10 → 0.15) or extend `DUMP_HEDGE_WINDOW_MINUTES`.
 - Markets may be quiet; the strategy only acts when a sufficient short-term drop occurs.
 
-##  Security Best Practices
+## Security Best Practices
 
 - **Never commit `.env`** – Keep it in `.gitignore` (already listed).
 - **Use env vars for secrets** – Don’t hardcode `PRIVATE_KEY` or API credentials.
@@ -229,7 +263,7 @@ docker logs -f polymarket-arbitrage-bot
 - **Limit wallet use** – Prefer a dedicated wallet with limited funds for the bot.
 - **Rotate keys** – Replace credentials if they may have been exposed.
 
-##  Project structure
+## Project structure
 
 - `src/main.ts` – Entry point, config load, market discovery, and monitor/trader wiring.
 - `src/config.ts` – Loads and validates `.env` into typed config.
@@ -240,21 +274,21 @@ docker logs -f polymarket-arbitrage-bot
 - `src/logger.ts` – History log and stderr output.
 - `history.toml` – Append-only log (created at runtime; in `.gitignore`).
 
-##  Contributing
+## Contributing
 
 Contributions are welcome. Please open an issue or pull request.
 
-1. Fork [DEV-OCR/polymarket-arbitrage-trading-bot](https://github.com/DEV-OCR/polymarket-arbitrage-trading-bot)  
+1. Fork [UTRUN0/polymarket-arbitrage-trading-bot](https://github.com/UTRUN0/polymarket-arbitrage-trading-bot)  
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)  
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)  
 4. Push to the branch (`git push origin feature/AmazingFeature`)  
 5. Open a Pull Request  
 
-##  License
+## License
 
 This project is licensed under the Apache License 2.0 – see the [LICENSE](LICENSE) file for details.
 
-##  Disclaimer
+## Disclaimer
 
 **IMPORTANT LEGAL DISCLAIMER:**
 
@@ -268,7 +302,7 @@ This software is provided “as-is” for educational and research purposes only
 
 The authors and contributors are not responsible for any financial losses, damages, or legal issues arising from the use of this software.
 
-##  Roadmap
+## Roadmap
 
 - [ ] Optional WebSocket orderbook updates for lower latency  
 - [ ] Backtesting / replay mode for strategy tuning  
